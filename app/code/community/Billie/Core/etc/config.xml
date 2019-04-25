@@ -42,6 +42,16 @@
                 </setup>
             </billie_core_setup>
         </resources>
+        <events>
+            <resource_get_tablename>
+                <observers>
+                    <billie_core>
+                        <class>billie_core/observer</class>
+                        <method>addAutoloader</method>
+                    </billie_core>
+                </observers>
+            </resource_get_tablename>
+        </events>
     </global>
     <default>
         <payment>

@@ -11,7 +11,7 @@ class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block
         $data = array();
         if ($this->getInfo()->getBillieLegalForm())
         {
-            $data[Mage::helper('payment')->__('Legal Form')] = $this->getInfo()->getBillieLegalForm();
+            $data[Mage::helper('payment')->__('Legal Form')] = $this->helper('billie_core')->getLegalFormByCode($this->getInfo()->getBillieLegalForm());
         }
 
         if ($this->getInfo()->getBillieIndustrySector())

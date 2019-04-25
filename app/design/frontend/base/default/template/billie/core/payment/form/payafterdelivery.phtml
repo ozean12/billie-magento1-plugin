@@ -1,11 +1,15 @@
+<?php
+//print_r($this->helper('billie_core')->getLegalForms());
+?>
 <div class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
     <div>
         <label><?php echo $this->__('Legal Form') ?>*</label>
         <span>
       <select  title="<?php echo $this->__('Legal Form') ?>" name="payment[billie_legal_form]">
-          <option value="90101"><?php echo $this->__('AG & Co. KG') ?></option>
-          <option value="11001"><?php echo $this->__('Aktiengesellschaft') ?></option>
-          <option value="19022"><?php echo $this->__('Anstalt') ?></option>
+          <option value=""><?php echo $this->__('please select') ?></option>
+          <?php foreach ($this->helper('billie_core')->getAllLegalForms() as $legalForm):?>
+          <option value="<?php echo $legalForm['code'] ?>"><?php echo $legalForm['label'] ?></option>
+          <?php endforeach; ?>
       </select>
     </span>
     </div>
