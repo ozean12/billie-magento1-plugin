@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Billie_Core>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Billie_Core>
     </modules>
     <global>
@@ -51,6 +51,15 @@
                     </billie_core>
                 </observers>
             </resource_get_tablename>
+            <sales_order_place_before>
+                <observers>
+                    <billie_createorder>
+                        <type>singleton</type>
+                        <class>Billie_Core_Model_Sales_Observer</class>
+                        <method>createOrder</method>
+                    </billie_createorder>
+                </observers>
+            </sales_order_place_before>
         </events>
     </global>
     <default>
@@ -65,4 +74,15 @@
             </payafterdelivery>
         </payment>
     </default>
+    <frontend>
+        <routers>
+            <index>
+                <use/>
+                <args>
+                    <frontName>billie</frontName>
+                    <module>Billie_Core_Payment</module>
+                </args>
+            </index>
+        </routers>
+    </frontend>
 </config>
