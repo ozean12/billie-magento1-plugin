@@ -69,6 +69,15 @@
                     </billie_shiporder>
                 </observers>
             </sales_order_shipment_save_after>
+            <order_cancel_after>
+                <observers>
+                    <billie_cancelorder>
+                        <type>singleton</type>
+                        <class>Billie_Core_Model_Sales_Observer</class>
+                        <method>cancelOrder</method>
+                    </billie_cancelorder>
+                </observers>
+            </order_cancel_after>
         </events>
     </global>
     <default>

@@ -61,4 +61,29 @@ class Billie_Core_Model_Sales_Observer
     }
 
 
+    public function cancelOrder($observer)
+    {
+        $order = $observer->getEvent()->getOrder();
+
+        if ($order->getPayment()->getMethodInstance()->getCode() != "payafterdelivery") {
+            return;
+        }
+
+        try {
+            $client = Billie\HttpClient\BillieClient::create($this->apiKey, true); // SANDBOX MODE
+
+            $command = new Billie\Command\CancelOrder($order->getBillieReferenceId());
+            $billieResponse = $client->cancelOrder($command);
+
+            Mage::Log($billieResponse, null, 'hdtest.log', true);
+
+        } catch (Exception $e) {
+
+            Mage::Log($e->getMessage(), null, 'hdtest.log', true);
+            Mage::throwException($e->getMessage());
+
+        }
+    }
+
+
 }

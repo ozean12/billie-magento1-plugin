@@ -43,8 +43,4 @@ class Billie_Core_Model_Payment_Payafterdelivery extends Mage_Payment_Model_Meth
         return $this;
     }
 
-    public function getOrderPlaceRedirectUrl()
-    {
-        return Mage::getUrl('billie/payment/redirect', array('_secure' => false));
-    }
 }
