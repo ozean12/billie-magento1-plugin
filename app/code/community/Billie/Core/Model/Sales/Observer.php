@@ -48,8 +48,6 @@ class Billie_Core_Model_Sales_Observer
                 $client = Billie\HttpClient\BillieClient::create($this->apiKey, true); // SANDBOX MODE
                 $billieResponse = $client->shipOrder($billieShipData);
 
-                Mage::Log($billieResponse, null, 'hdtest.log', true);
-
             } catch (Exception $e) {
 
                 Mage::Log($e->getMessage(), null, 'hdtest.log', true);
@@ -74,8 +72,6 @@ class Billie_Core_Model_Sales_Observer
 
             $command = new Billie\Command\CancelOrder($order->getBillieReferenceId());
             $billieResponse = $client->cancelOrder($command);
-
-            Mage::Log($billieResponse, null, 'hdtest.log', true);
 
         } catch (Exception $e) {
 
