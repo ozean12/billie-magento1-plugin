@@ -10,7 +10,7 @@ class Billie_Core_Model_Sales_Observer
         $order = $observer->getEvent()->getOrder();
 
         try {
-            $billieOrderData = Mage::helper('billie_core/sdk')->mapData($order);
+            $billieOrderData = Mage::helper('billie_core/sdk')->mapCreateOrderData($order);
 // initialize Billie Client
             $client = Billie\HttpClient\BillieClient::create($this->apiKey, true); // SANDBOX MODE
 
@@ -20,7 +20,42 @@ class Billie_Core_Model_Sales_Observer
 
         } catch (Exception $e) {
             Mage::throwException($e->getMessage());
+        }
 
+    }
+
+    public function shipOrder($observer)
+    {
+        $shipment = $observer->getEvent()->getShipment();
+        $order = $shipment->getOrder();
+
+        if ($order->getPayment()->getMethodInstance()->getCode() != "payafterdelivery") {
+            return;
+        }
+
+        $invoiceIds = $order->getInvoiceCollection()->getAllIds();
+
+        if (!$invoiceIds) {
+
+            Mage::throwException('You have to create a invoice first');
+
+        } else {
+
+            try {
+
+                $billieShipData = Mage::helper('billie_core/sdk')->mapShipOrderData($order);
+
+                $client = Billie\HttpClient\BillieClient::create($this->apiKey, true); // SANDBOX MODE
+                $billieResponse = $client->shipOrder($billieShipData);
+
+                Mage::Log($billieResponse, null, 'hdtest.log', true);
+
+            } catch (Exception $e) {
+
+                Mage::Log($e->getMessage(), null, 'hdtest.log', true);
+                Mage::throwException($e->getMessage());
+
+            }
         }
 
     }

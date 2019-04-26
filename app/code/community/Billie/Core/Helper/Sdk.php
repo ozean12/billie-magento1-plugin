@@ -9,44 +9,54 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
      * @param $order
      * @return object
      */
-    public function mapData($order)
+    public function mapCreateOrderData($order)
     {
 
         $billingAddress = $order->getBillingAddress();
         $shippingAddress = $order->getShippingAddress();
         $payment = $order->getPayment();
 
-        try {
-            $command = new Billie\Command\CreateOrder();
+        $command = new Billie\Command\CreateOrder();
 
 //// Company information
-            $command->debtorCompany = new Billie\Model\Company('BILLIE-00000001', $billingAddress->getCompany(), $this->mapAddress($billingAddress));
-            $command->debtorCompany->industrySector = $payment->getBillieIndustrySector();
-            $command->debtorCompany->legalForm = $payment->getBillieLegalForm();
+        $command->debtorCompany = new Billie\Model\Company('BILLIE-00000001', $billingAddress->getCompany(), $this->mapAddress($billingAddress));
+        $command->debtorCompany->industrySector = $payment->getBillieIndustrySector();
+        $command->debtorCompany->legalForm = $payment->getBillieLegalForm();
 //
 //// Information about the person
-            $command->debtorPerson = new Billie\Model\Person($billingAddress->getEmail());
-            $command->debtorPerson->salution = ($order->getCustomerGender() ? 'm' : 'f');
+        $command->debtorPerson = new Billie\Model\Person($billingAddress->getEmail());
+        $command->debtorPerson->salution = ($order->getCustomerGender() ? 'm' : 'f');
 //
 //// Delivery Address
-            $command->deliveryAddress = $this->mapAddress($shippingAddress);
+        $command->deliveryAddress = $this->mapAddress($shippingAddress);
 //
 //// Amount
 ///  TODO if Grandtotal includes tax
-            $command->amount = new Billie\Model\Amount($order->getGrandTotal(), $order->getGlobalCurrencyCode(), 19); // amounts are in cent!
+        $command->amount = new Billie\Model\Amount($order->getGrandTotal(), $order->getGlobalCurrencyCode(), 19); // amounts are in cent!
 //
 //// Define the due date in DAYS AFTER SHIPPMENT
 //        $command->duration = 14; // meaning: when the order is shipped on the 1st May, the
 
 
-        } catch (Exception $e) {
-
-            mage::log($e->getMessage(), null, 'hdtest.log', true);
-
-        }
-
         return $command;
 
+    }
+
+    /**
+     * create billie ShipOrder object
+     *
+     * @param $order
+     * @return object
+     */
+    public function mapShipOrderData($order)
+    {
+
+        $command = new Billie\Command\ShipOrder($order->getBillieReferenceId());
+        $command->orderId = $order->getIncrementId();
+        $command->invoiceNumber = $order->getInvoiceCollection()->getFirstItem()->getIncrementId();
+        $command->invoiceUrl = 'https://www.googledrive.com/somefile.pdf';
+
+        return $command;
     }
 
     /**

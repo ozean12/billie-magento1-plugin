@@ -60,6 +60,15 @@
                     </billie_createorder>
                 </observers>
             </sales_order_place_before>
+            <sales_order_shipment_save_after>
+                <observers>
+                    <billie_shiporder>
+                        <type>singleton</type>
+                        <class>Billie_Core_Model_Sales_Observer</class>
+                        <method>shipOrder</method>
+                    </billie_shiporder>
+                </observers>
+            </sales_order_shipment_save_after>
         </events>
     </global>
     <default>
