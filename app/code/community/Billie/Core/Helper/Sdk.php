@@ -79,4 +79,5 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         return $addressObj;
     }
 
+
 }

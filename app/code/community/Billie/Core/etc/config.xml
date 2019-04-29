@@ -92,15 +92,4 @@
             </payafterdelivery>
         </payment>
     </default>
-    <frontend>
-        <routers>
-            <index>
-                <use/>
-                <args>
-                    <frontName>billie</frontName>
-                    <module>Billie_Core_Payment</module>
-                </args>
-            </index>
-        </routers>
-    </frontend>
 </config>

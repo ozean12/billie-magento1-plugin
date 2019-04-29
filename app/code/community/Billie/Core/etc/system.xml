@@ -9,7 +9,7 @@
     <sections>
         <payment>
             <groups>
-                <billie_core translate="label" module="billie_core">
+                <billie_payafterdelivery translate="label" module="billie_core">
                     <label>Billie PayAfterDelivery</label>
                     <sort_order>1000</sort_order>
                     <show_in_default>1</show_in_default>
@@ -78,7 +78,7 @@
                             <sort_order>70</sort_order>
                         </specificcountry>
                     </fields>
-                </billie_core>
+                </billie_payafterdelivery>
             </groups>
         </payment>
     </sections>

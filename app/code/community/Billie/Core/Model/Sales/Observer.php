@@ -2,17 +2,28 @@
 
 class Billie_Core_Model_Sales_Observer
 {
-    private $apiKey = 'test-ralph';
+    const apiKey = 'payment/billie_payafterdelivery/api_key';
+    const sandboxMode = 'payment/billie_payafterdelivery/sandbox';
+
 
     public function createOrder($observer)
     {
 
+        /** @var $paymentMethod Billie_Core_Model_Payment_Payafterdelivery */
         $order = $observer->getEvent()->getOrder();
+        $payment = $order->getPayment();
+        $paymentMethod = $payment->getMethodInstance();
+
+//        $payment = $order->getPayment()->getMethodInstance();
+        if ($paymentMethod->getCode() != "payafterdelivery") {
+            return;
+        }
 
         try {
             $billieOrderData = Mage::helper('billie_core/sdk')->mapCreateOrderData($order);
 // initialize Billie Client
-            $client = Billie\HttpClient\BillieClient::create($this->apiKey, true); // SANDBOX MODE
+
+            $client = Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode)); // SANDBOX MODE
 
             $billieResponse = $client->createOrder($billieOrderData);
             $order->setData('billie_reference_id', $billieResponse->referenceId);
@@ -28,8 +39,9 @@ class Billie_Core_Model_Sales_Observer
     {
         $shipment = $observer->getEvent()->getShipment();
         $order = $shipment->getOrder();
+        $payment = $order->getPayment()->getMethodInstance();
 
-        if ($order->getPayment()->getMethodInstance()->getCode() != "payafterdelivery") {
+        if ($payment->getCode() != "payafterdelivery") {
             return;
         }
 
@@ -45,7 +57,7 @@ class Billie_Core_Model_Sales_Observer
 
                 $billieShipData = Mage::helper('billie_core/sdk')->mapShipOrderData($order);
 
-                $client = Billie\HttpClient\BillieClient::create($this->apiKey, true); // SANDBOX MODE
+                $client = Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode)); // SANDBOX MODE
                 $billieResponse = $client->shipOrder($billieShipData);
 
             } catch (Exception $e) {
@@ -62,13 +74,14 @@ class Billie_Core_Model_Sales_Observer
     public function cancelOrder($observer)
     {
         $order = $observer->getEvent()->getOrder();
+        $payment = $order->getPayment()->getMethodInstance();
 
-        if ($order->getPayment()->getMethodInstance()->getCode() != "payafterdelivery") {
+        if ($payment->getCode() != "payafterdelivery") {
             return;
         }
 
         try {
-            $client = Billie\HttpClient\BillieClient::create($this->apiKey, true); // SANDBOX MODE
+            $client = Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode)); // SANDBOX MODE
 
             $command = new Billie\Command\CancelOrder($order->getBillieReferenceId());
             $billieResponse = $client->cancelOrder($command);
