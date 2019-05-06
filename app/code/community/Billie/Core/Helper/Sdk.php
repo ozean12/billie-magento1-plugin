@@ -20,7 +20,6 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 
 //// Company information
         $command->debtorCompany = new Billie\Model\Company('BILLIE-00000001', $billingAddress->getCompany(), $this->mapAddress($billingAddress));
-        $command->debtorCompany->industrySector = $payment->getBillieIndustrySector();
         $command->debtorCompany->legalForm = $payment->getBillieLegalForm();
 //
 //// Information about the person

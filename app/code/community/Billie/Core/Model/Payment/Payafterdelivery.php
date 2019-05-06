@@ -14,10 +14,6 @@ class Billie_Core_Model_Payment_Payafterdelivery extends Mage_Payment_Model_Meth
             $info->setBillieLegalForm($data->getBillieLegalForm());
         }
 
-        if ($data->getBillieIndustrySector()) {
-            $info->setBillieIndustrySector($data->getBillieIndustrySector());
-        }
-
         return $this;
     }
 
@@ -29,11 +25,6 @@ class Billie_Core_Model_Payment_Payafterdelivery extends Mage_Payment_Model_Meth
         if (!$info->getBillieLegalForm()) {
             $errorCode = 'invalid_data';
             $errorMsg = $this->_getHelper()->__("Legal form is a required field.\n");
-        }
-
-        if (!$info->getBillieIndustrySector()) {
-            $errorCode = 'invalid_data';
-            $errorMsg .= $this->_getHelper()->__('Industry sector is a required field.');
         }
 
         if ($errorMsg) {

@@ -11,9 +11,6 @@
                 <billie_legal_form>
                     <to_order_payment>*</to_order_payment>
                 </billie_legal_form>
-                <billie_industry_sector>
-                    <to_order_payment>*</to_order_payment>
-                </billie_industry_sector>
             </sales_convert_quote_payment>
         </fieldsets>
         <models>
