@@ -2,8 +2,8 @@
 
 class Billie_Core_Model_Sales_Observer
 {
-    const apiKey = 'payment/billie_payafterdelivery/api_key';
-    const sandboxMode = 'payment/billie_payafterdelivery/sandbox';
+    const apiKey = 'payment/payafterdelivery/api_key';
+    const sandboxMode = 'payment/payafterdelivery/sandbox';
 
 
     public function createOrder($observer)
@@ -14,7 +14,6 @@ class Billie_Core_Model_Sales_Observer
         $payment = $order->getPayment();
         $paymentMethod = $payment->getMethodInstance();
 
-//        $payment = $order->getPayment()->getMethodInstance();
         if ($paymentMethod->getCode() != "payafterdelivery") {
             return;
         }
@@ -26,7 +25,11 @@ class Billie_Core_Model_Sales_Observer
             $client = Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode)); // SANDBOX MODE
 
             $billieResponse = $client->createOrder($billieOrderData);
+
             $order->setData('billie_reference_id', $billieResponse->referenceId);
+            $payment->setData('billie_viban', $billieResponse->bankAccount->iban);
+            $payment->setData('billie_vbic', $billieResponse->bankAccount->bic);
+            $payment->save();
             $order->save();
 
         } catch (Exception $e) {
@@ -62,7 +65,6 @@ class Billie_Core_Model_Sales_Observer
 
             } catch (Exception $e) {
 
-                Mage::Log($e->getMessage(), null, 'hdtest.log', true);
                 Mage::throwException($e->getMessage());
 
             }
@@ -88,11 +90,9 @@ class Billie_Core_Model_Sales_Observer
 
         } catch (Exception $e) {
 
-            Mage::Log($e->getMessage(), null, 'hdtest.log', true);
             Mage::throwException($e->getMessage());
 
         }
     }
-
 
 }

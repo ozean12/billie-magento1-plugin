@@ -70,7 +70,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 
         $addressObj = new Billie\Model\Address();
         $addressObj->street = $address->getStreet()[0];
-        $addressObj->houseNumber = '4';
+        $addressObj->houseNumber = $address->getStreet()[1];
         $addressObj->postalCode = $address->getPostcode();
         $addressObj->city = $address->getCity();
         $addressObj->countryCode = $address->getCountryId();

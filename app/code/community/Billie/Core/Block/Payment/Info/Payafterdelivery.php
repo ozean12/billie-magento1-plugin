@@ -13,6 +13,10 @@ class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block
         {
             $data[Mage::helper('payment')->__('Legal Form')] = $this->helper('billie_core')->getLegalFormByCode($this->getInfo()->getBillieLegalForm());
         }
+        if ($this->getInfo()->getBillieViban())
+        {
+            $data[Mage::helper('payment')->__('VIBAN')] = $this->getInfo()->getBillieViban();
+        }
 
 
         $transport = parent::_prepareSpecificInformation($transport);
