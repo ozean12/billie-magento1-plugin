@@ -15,11 +15,13 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $billingAddress = $order->getBillingAddress();
         $shippingAddress = $order->getShippingAddress();
         $payment = $order->getPayment();
+        $customerId = $order->getCustomerId()?$order->getCustomerId():'';
+
 
         $command = new Billie\Command\CreateOrder();
 
 //// Company information
-        $command->debtorCompany = new Billie\Model\Company('BILLIE-00000001', $billingAddress->getCompany(), $this->mapAddress($billingAddress));
+        $command->debtorCompany = new Billie\Model\Company($customerId, $billingAddress->getCompany(), $this->mapAddress($billingAddress));
         $command->debtorCompany->legalForm = $payment->getBillieLegalForm();
 //
 //// Information about the person
