@@ -88,5 +88,34 @@
                 <payment_action>sale</payment_action>
             </payafterdelivery>
         </payment>
+        <billie_core>
+            <config>
+                <housenumber>street</housenumber>
+            </config>
+        </billie_core>
     </default>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <billie_core translate="title" module="billie_core">
+                                    <title>Billie Core Payment</title>
+                                </billie_core>
+                                <config>
+                                    <children>
+                                        <billie_core translate="title" module="billie_core">
+                                            <title>Payment Config</title>
+                                        </billie_core>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
 </config>

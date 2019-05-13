@@ -7,6 +7,45 @@
         </Billie>
     </tabs>
     <sections>
+        <billie_core translate="label" module="billie_core">
+            <label>Billie Core Config</label>
+            <tab>Billie</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>20</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <config translate="label" module="billie_core">
+                    <label>Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <housenumber translate="label" module="billie_core">
+                            <label>Addressfield to use for housenumber</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>billie_core/resource_address</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </housenumber>
+                        <invoice_url translate="label" module="billie_core">
+                            <label>Invoice Download Url</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <comment>Url to invoice document folder</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </invoice_url>
+                    </fields>
+                </config>
+            </groups>
+        </billie_core>
         <payment>
             <groups>
                 <payafterdelivery translate="label" module="billie_core">

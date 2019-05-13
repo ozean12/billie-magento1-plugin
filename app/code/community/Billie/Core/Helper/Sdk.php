@@ -3,6 +3,8 @@
 class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 {
 
+    const housenumberField = 'billie_core/config/housenumber';
+    const invoiceUrl = 'billie_core/config/invoice_url';
     /**
      * create billie CreateOrder object
      *
@@ -33,11 +35,10 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 //
 //// Amount
 ///  TODO if Grandtotal includes tax
-        $command->amount = new Billie\Model\Amount($order->getGrandTotal(), $order->getGlobalCurrencyCode(), 19); // amounts are in cent!
+        $command->amount = new Billie\Model\Amount(($order->getBaseSubtotal()+$order->getBaseShippingAmount())*100, $order->getGlobalCurrencyCode(), $order->getBaseTaxAmount()*100); // amounts are in cent!
 //
 //// Define the due date in DAYS AFTER SHIPPMENT
 //        $command->duration = 14; // meaning: when the order is shipped on the 1st May, the
-
 
         return $command;
 
@@ -55,7 +56,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command = new Billie\Command\ShipOrder($order->getBillieReferenceId());
         $command->orderId = $order->getIncrementId();
         $command->invoiceNumber = $order->getInvoiceCollection()->getFirstItem()->getIncrementId();
-        $command->invoiceUrl = 'https://www.googledrive.com/somefile.pdf';
+        $command->invoiceUrl = str_replace('//','/',Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf');
 
         return $command;
     }
@@ -72,7 +73,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 
         $addressObj = new Billie\Model\Address();
         $addressObj->street = $address->getStreet()[0];
-        $addressObj->houseNumber = $address->getStreet()[1];
+        $addressObj->houseNumber = (Mage::getStoreConfig(self::housenumberField) != 'street')?$address->getData(Mage::getStoreConfig(self::housenumberField)):$address->getStreet()[1];
         $addressObj->postalCode = $address->getPostcode();
         $addressObj->city = $address->getCity();
         $addressObj->countryCode = $address->getCountryId();

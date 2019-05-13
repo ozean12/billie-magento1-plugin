@@ -20,7 +20,7 @@ class Billie_Core_Model_Sales_Observer
 
         try {
             $billieOrderData = Mage::helper('billie_core/sdk')->mapCreateOrderData($order);
-// initialize Billie Client
+            // initialize Billie Client
 
             $client = Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode)); // SANDBOX MODE
 
@@ -33,10 +33,13 @@ class Billie_Core_Model_Sales_Observer
             $order->save();
 
         } catch (Exception $e) {
+
             Mage::throwException($e->getMessage());
+
         }
 
     }
+
 
     public function shipOrder($observer)
     {
