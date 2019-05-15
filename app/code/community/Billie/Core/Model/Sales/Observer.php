@@ -22,8 +22,9 @@ class Billie_Core_Model_Sales_Observer
             $client = Mage::Helper('billie_core/sdk')->clientCreate();
 
             $billieResponse = $client->createOrder($billieOrderData);
-
             $order->setData('billie_reference_id', $billieResponse->referenceId);
+            $order->addStatusHistoryComment('Billie PayAfterDelivery: payment accepted for %s',$billieResponse->referenceId);
+
             $payment->setData('billie_viban', $billieResponse->bankAccount->iban);
             $payment->setData('billie_vbic', $billieResponse->bankAccount->bic);
             $payment->save();
@@ -62,10 +63,13 @@ class Billie_Core_Model_Sales_Observer
 
                 $client = Mage::Helper('billie_core/sdk')->clientCreate();
                 $billieResponse = $client->shipOrder($billieShipData);
+                $order->addStatusHistoryComment(Mage::Helper('billie_core')->__('Billie PayAfterDelivery: shipping information was send for %s. The customer will be charged now',$billieResponse->referenceId));
+                $order->save();
 
-            } catch (Exception $e) {
+            }  catch(Exception $error) {
+                mage::log($error->getCode(),null,'hdtedt.log',true);
 
-                Mage::throwException($e->getMessage());
+                Mage::throwException($error->getMessage());
 
             }
         }

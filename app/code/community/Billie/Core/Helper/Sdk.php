@@ -64,7 +64,8 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command = new Billie\Command\ShipOrder($order->getBillieReferenceId());
         $command->orderId = $order->getIncrementId();
         $command->invoiceNumber = $order->getInvoiceCollection()->getFirstItem()->getIncrementId();
-        $command->invoiceUrl = str_replace('//','/',Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf');
+        $command->invoiceUrl = Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf';
+//        $command->invoiceUrl = str_replace('//','/',Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf');
 
         return $command;
     }
