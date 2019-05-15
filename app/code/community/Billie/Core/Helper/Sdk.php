@@ -1,10 +1,18 @@
 <?php
 
+use Billie\Command\CancelOrder;
+use Billie\Command\ReduceOrderAmount;
+use Billie\Model\Amount;
+
 class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 {
 
+    const sandboxMode = 'payment/payafterdelivery/sandbox';
+    const apiKey = 'payment/payafterdelivery/api_key';
     const housenumberField = 'billie_core/config/housenumber';
     const invoiceUrl = 'billie_core/config/invoice_url';
+
+
     /**
      * create billie CreateOrder object
      *
@@ -79,6 +87,46 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $addressObj->countryCode = $address->getCountryId();
 
         return $addressObj;
+    }
+
+    /**
+     * @return \Billie\HttpClient\BillieClient
+     */
+
+
+    public function clientCreate(){
+
+        return Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode));
+    }
+
+    /**
+     * @param $order
+     * @return ReduceOrderAmount
+     *
+     */
+
+    public function reduceAmount($order){
+
+        $command = new Billie\Command\ReduceOrderAmount($order->getBillieReferenceId());
+        $newTotalAmount = $order->getData('subtotal_invoiced') - $order->getData('subtotal_refunded');
+        $newTaxAmount = $order->getData('tax_invoiced') - $order->getData('tax_refunded');
+        $command->amount = new Billie\Model\Amount($newTotalAmount*100, $order->getData('base_currency_code'), $newTaxAmount*100);
+
+        return $command;
+
+    }
+
+    /**
+     * @param $order
+     * @return CancelOrder
+     *
+     */
+
+    public function cancel($order){
+
+        return new Billie\Command\CancelOrder($order->getBillieReferenceId());
+
+
     }
 
 

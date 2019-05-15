@@ -75,6 +75,15 @@
                     </billie_cancelorder>
                 </observers>
             </order_cancel_after>
+            <sales_order_creditmemo_save_after>
+                <observers>
+                    <billie_updateorder>
+                        <type>singleton</type>
+                        <class>Billie_Core_Model_Sales_Observer</class>
+                        <method>updateOrder</method>
+                    </billie_updateorder>
+                </observers>
+            </sales_order_creditmemo_save_after>
         </events>
     </global>
     <default>

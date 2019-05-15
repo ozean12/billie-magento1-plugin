@@ -2,9 +2,6 @@
 
 class Billie_Core_Model_Sales_Observer
 {
-    const apiKey = 'payment/payafterdelivery/api_key';
-    const sandboxMode = 'payment/payafterdelivery/sandbox';
-
 
     public function createOrder($observer)
     {
@@ -22,7 +19,7 @@ class Billie_Core_Model_Sales_Observer
             $billieOrderData = Mage::helper('billie_core/sdk')->mapCreateOrderData($order);
             // initialize Billie Client
 
-            $client = Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode)); // SANDBOX MODE
+            $client = Mage::Helper('billie_core/sdk')->clientCreate();
 
             $billieResponse = $client->createOrder($billieOrderData);
 
@@ -63,7 +60,7 @@ class Billie_Core_Model_Sales_Observer
 
                 $billieShipData = Mage::helper('billie_core/sdk')->mapShipOrderData($order);
 
-                $client = Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode)); // SANDBOX MODE
+                $client = Mage::Helper('billie_core/sdk')->clientCreate();
                 $billieResponse = $client->shipOrder($billieShipData);
 
             } catch (Exception $e) {
@@ -86,9 +83,9 @@ class Billie_Core_Model_Sales_Observer
         }
 
         try {
-            $client = Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode)); // SANDBOX MODE
+            $client = Mage::Helper('billie_core/sdk')->clientCreate();
 
-            $command = new Billie\Command\CancelOrder($order->getBillieReferenceId());
+            $command =  Mage::Helper('billie_core/sdk')->cancel($order);
             $billieResponse = $client->cancelOrder($command);
 
         } catch (Exception $e) {
@@ -96,6 +93,40 @@ class Billie_Core_Model_Sales_Observer
             Mage::throwException($e->getMessage());
 
         }
+    }
+
+    public function updateOrder($observer)
+    {
+
+        $creditMemo = $observer->getEvent()->getCreditmemo();
+        $order = $creditMemo->getOrder();
+
+        $client = Mage::Helper('billie_core/sdk')->clientCreate();
+        try {
+            if ($order->canCreditmemo()) {
+
+                $command = Mage::Helper('billie_core/sdk')->reduceAmount($order);
+                $billieResponse = $client->reduceOrderAmount($command);
+
+                if($billieResponse->state == 'complete'){
+
+                    Mage::getSingleton('core/session')->addNotice(Mage::Helper('billie_core')->__('This transaction is already closed, refunds with billie payment are not possible anymore'));
+
+                }
+
+            } else {
+
+                $command =  Mage::Helper('billie_core/sdk')->cancel($order);
+                $billieResponse = $client->cancelOrder($command);
+
+            }
+        } catch (Exception $e) {
+
+            Mage::throwException($e->getMessage());
+
+        }
+
+
     }
 
 }
