@@ -1,9 +1,5 @@
 <?php
 
-use Billie\Command\CancelOrder;
-use Billie\Command\ReduceOrderAmount;
-use Billie\Model\Amount;
-
 class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 {
 
@@ -25,7 +21,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $billingAddress = $order->getBillingAddress();
         $shippingAddress = $order->getShippingAddress();
         $payment = $order->getPayment();
-        $customerId = $order->getCustomerId()?$order->getCustomerId():'';
+        $customerId = $order->getCustomerId()?$order->getCustomerId():$order->getCustomerEmail();
 
 
         $command = new Billie\Command\CreateOrder();
@@ -42,7 +38,6 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command->deliveryAddress = $this->mapAddress($shippingAddress);
 //
 //// Amount
-///  TODO if Grandtotal includes tax
         $command->amount = new Billie\Model\Amount(($order->getBaseSubtotal()+$order->getBaseShippingAmount())*100, $order->getGlobalCurrencyCode(), $order->getBaseTaxAmount()*100); // amounts are in cent!
 //
 //// Define the due date in DAYS AFTER SHIPPMENT
@@ -111,6 +106,8 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command = new Billie\Command\ReduceOrderAmount($order->getBillieReferenceId());
         $newTotalAmount = $order->getData('subtotal_invoiced') - $order->getData('subtotal_refunded');
         $newTaxAmount = $order->getData('tax_invoiced') - $order->getData('tax_refunded');
+        $command->invoiceNumber = $order->getInvoiceCollection()->getFirstItem()->getIncrementId();
+        $command->invoiceUrl = Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf';
         $command->amount = new Billie\Model\Amount($newTotalAmount*100, $order->getData('base_currency_code'), $newTaxAmount*100);
 
         return $command;

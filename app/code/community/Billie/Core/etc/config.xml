@@ -127,4 +127,15 @@
             </resources>
         </acl>
     </adminhtml>
+    <frontend>
+        <translate>
+            <modules>
+                <billie_core>
+                    <files>
+                        <default>billie_core.csv</default>
+                    </files>
+                </billie_core>
+            </modules>
+        </translate>
+    </frontend>
 </config>
