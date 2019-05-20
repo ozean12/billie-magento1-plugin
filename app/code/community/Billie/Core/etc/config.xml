@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Billie_Core>
-            <version>0.1.2</version>
+            <version>0.1.3</version>
         </Billie_Core>
     </modules>
     <global>
@@ -20,6 +20,11 @@
             </billie_core>
             <billie_core_resource>
                 <class>Billie_Core_Model_Resource</class>
+                <entities>
+                    <transaction_log>
+                        <table>billie_transaction_log</table>
+                    </transaction_log>
+                </entities>
             </billie_core_resource>
         </models>
         <blocks>
@@ -126,6 +131,13 @@
                 </admin>
             </resources>
         </acl>
+        <layout>
+            <updates>
+                <billie_core>
+                    <file>billie_core.xml</file>
+                </billie_core>
+            </updates>
+        </layout>
     </adminhtml>
     <frontend>
         <translate>
@@ -138,4 +150,15 @@
             </modules>
         </translate>
     </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Billie_Core before="Mage_Adminhtml">Billie_Core_Adminhtml</Billie_Core>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
 </config>

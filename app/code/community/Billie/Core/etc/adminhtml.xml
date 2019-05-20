@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<menu>
+		<billie_core>
+			<title>Billie Payment</title>
+			<sort_order>97</sort_order>
+			<children>
+				<billie_core>
+					<title>Transaction Log</title>
+					<sort_order>5</sort_order>
+					<action>adminhtml/transaction_log</action>
+					<!--<resource>abo/abo_modules</resource>-->
+				</billie_core>
+			</children>
+		</billie_core>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<billie_core module="adminhtml">
+						<title>HIGHDIGITAL</title>
+						<children>
+							<abo>
+								<title>Abo</title>
+							</abo>
+							<address>
+								<title>Abo Address</title>
+							</address>
+						</children>
+					</billie_core>
+				</children>
+			</admin>
+			<admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <abo>
+                                        <title>Abos</title>
+                                    </abo>
+									<address>
+										<title>Abo Address</title>
+									</address>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+		</resources>
+	</acl>
+</config>
