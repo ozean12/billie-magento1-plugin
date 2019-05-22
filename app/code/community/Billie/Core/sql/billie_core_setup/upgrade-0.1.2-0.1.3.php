@@ -33,6 +33,9 @@ $table = $installer->getConnection()
     ->addColumn('mode', Varien_Db_Ddl_Table::TYPE_VARCHAR,12,array(
         'nullable'  => true,
     ), 'transaction mode')
+    ->addColumn('billie_state', Varien_Db_Ddl_Table::TYPE_VARCHAR,12,array(
+        'nullable'  => true,
+    ), 'billie state')
     ->addColumn('request', Varien_Db_Ddl_Table::TYPE_TEXT,array(
         'nullable'  => false,
     ), 'transaction at')

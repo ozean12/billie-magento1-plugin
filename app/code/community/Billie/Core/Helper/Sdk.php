@@ -92,7 +92,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 
     public function clientCreate(){
 
-        return Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), Mage::getStoreConfig(self::sandboxMode));
+        return Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), $this->getMode());
     }
 
     /**
@@ -124,6 +124,12 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 
         return new Billie\Command\CancelOrder($order->getBillieReferenceId());
 
+
+    }
+
+    public function getMode(){
+
+       return Mage::getStoreConfig(self::sandboxMode);
 
     }
 

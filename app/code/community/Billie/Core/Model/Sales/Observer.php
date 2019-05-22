@@ -24,6 +24,8 @@ class Billie_Core_Model_Sales_Observer
             $client = Mage::Helper('billie_core/sdk')->clientCreate();
 
             $billieResponse = $client->createOrder($billieOrderData);
+            Mage::Helper('billie_core/log')->billieLog($order, $billieOrderData, $billieResponse);
+
             $order->setData('billie_reference_id', $billieResponse->referenceId);
             $order->addStatusHistoryComment(Mage::Helper('billie_core')->__('Billie PayAfterDelivery: payment accepted for %s', $billieResponse->referenceId));
 
@@ -31,6 +33,8 @@ class Billie_Core_Model_Sales_Observer
             $payment->setData('billie_vbic', $billieResponse->bankAccount->bic);
             $payment->save();
             $order->save();
+
+
 
         } catch (Exception $e) {
 
@@ -65,6 +69,8 @@ class Billie_Core_Model_Sales_Observer
 
                 $client = Mage::Helper('billie_core/sdk')->clientCreate();
                 $billieResponse = $client->shipOrder($billieShipData);
+
+                Mage::Helper('billie_core/log')->billieLog($order, $billieShipData, $billieResponse);
                 $order->addStatusHistoryComment(Mage::Helper('billie_core')->__('Billie PayAfterDelivery: shipping information was send for %s. The customer will be charged now', $billieResponse->referenceId));
                 $order->save();
 
@@ -90,8 +96,10 @@ class Billie_Core_Model_Sales_Observer
         try {
             $client = Mage::Helper('billie_core/sdk')->clientCreate();
 
-            $command = Mage::Helper('billie_core/sdk')->cancel($order);
-            $billieResponse = $client->cancelOrder($command);
+            $billieCancelData = Mage::Helper('billie_core/sdk')->cancel($order);
+            $billieResponse = $client->cancelOrder($billieCancelData);
+
+            Mage::Helper('billie_core/log')->billieLog($order, $billieCancelData, $billieResponse);
             $order->addStatusHistoryComment(Mage::Helper('billie_core')->__('Billie PayAfterDelivery:  The transaction with the id %s was successfully canceled.', $order->getBillieReferenceId()));
             $order->save();
 
@@ -117,8 +125,10 @@ class Billie_Core_Model_Sales_Observer
         try {
             if ($order->canCreditmemo()) {
 
-                $command = Mage::Helper('billie_core/sdk')->reduceAmount($order);
-                $billieResponse = $client->reduceOrderAmount($command);
+                $billieUpdateData = Mage::Helper('billie_core/sdk')->reduceAmount($order);
+                $billieResponse = $client->reduceOrderAmount($billieUpdateData);
+
+                Mage::Helper('billie_core/log')->billieLog($order, $billieUpdateData, $billieResponse);
 
                 if ($billieResponse->state == 'complete') {
 
@@ -134,9 +144,10 @@ class Billie_Core_Model_Sales_Observer
 
             } else {
 
-                $command = Mage::Helper('billie_core/sdk')->cancel($order);
-                $billieResponse = $client->cancelOrder($command);
+                $billieCancelData = Mage::Helper('billie_core/sdk')->cancel($order);
+                $billieResponse = $client->cancelOrder($billieCancelData);
 
+                Mage::Helper('billie_core/log')->billieLog($order, $billieCancelData, $billieResponse);
                 $order->addStatusHistoryComment(Mage::Helper('billie_core')->__('Billie PayAfterDelivery:  The transaction with the id %s was successfully canceled.', $order->getBillieReferenceId()));
                 $order->save();
 

@@ -58,6 +58,20 @@ class Billie_Core_Block_Adminhtml_Transaction_Log_Grid extends Mage_Adminhtml_Bl
                 'index' => 'mode'
             )
         );
+        $this->addColumn('billie_state',
+            array(
+                'header' => $this->__('state'),
+                'width' => '10px',
+                'index' => 'billie_state'
+            )
+        );
+        $this->addColumn('request',
+            array(
+                'header' => $this->__('request'),
+                'width' => '10px',
+                'index' => 'request'
+            )
+        );
 
         $this->addExportType('*/*/exportCsv', $this->__('CSV'));
 
