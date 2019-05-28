@@ -80,6 +80,15 @@
                             <show_in_store>1</show_in_store>
                             <sort_order>30</sort_order>
                         </api_key>
+                        <duration translate="label">
+                            <backend_model>billie_core/payment_duration</backend_model>
+                            <label>Zahlungsziel in Tagen</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>30</sort_order>
+                        </duration>
                         <sandbox translate="label">
                             <label>Use Sandbox</label>
                             <frontend_type>select</frontend_type>

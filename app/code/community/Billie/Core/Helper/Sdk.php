@@ -5,6 +5,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 
     const sandboxMode = 'payment/payafterdelivery/sandbox';
     const apiKey = 'payment/payafterdelivery/api_key';
+    const duration = 'payment/payafterdelivery/duration';
     const housenumberField = 'billie_core/config/housenumber';
     const invoiceUrl = 'billie_core/config/invoice_url';
 
@@ -41,7 +42,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command->amount = new Billie\Model\Amount(($order->getBaseSubtotal()+$order->getBaseShippingAmount())*100, $order->getGlobalCurrencyCode(), $order->getBaseTaxAmount()*100); // amounts are in cent!
 //
 //// Define the due date in DAYS AFTER SHIPPMENT
-//        $command->duration = 14; // meaning: when the order is shipped on the 1st May, the
+        $command->duration = Mage::getStoreConfig(self::duration); // meaning: when the order is shipped on the 1st May, the
 
         return $command;
 
