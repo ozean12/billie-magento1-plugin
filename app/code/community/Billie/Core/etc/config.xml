@@ -102,11 +102,6 @@
                 <payment_action>sale</payment_action>
             </payafterdelivery>
         </payment>
-        <customer>
-            <create_account>
-                <vat_frontend_visibility>1</vat_frontend_visibility>
-            </create_account>
-        </customer>
         <billie_core>
             <config>
                 <housenumber>street</housenumber>
