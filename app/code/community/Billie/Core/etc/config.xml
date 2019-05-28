@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Billie_Core>
-            <version>0.1.3</version>
+            <version>0.1.4</version>
         </Billie_Core>
     </modules>
     <global>
@@ -102,6 +102,11 @@
                 <payment_action>sale</payment_action>
             </payafterdelivery>
         </payment>
+        <customer>
+            <create_account>
+                <vat_frontend_visibility>1</vat_frontend_visibility>
+            </create_account>
+        </customer>
         <billie_core>
             <config>
                 <housenumber>street</housenumber>
