@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Billie_Core>
-            <version>0.1.5</version>
+            <version>0.1.6</version>
         </Billie_Core>
     </modules>
     <global>
@@ -150,6 +150,15 @@
                 </billie_core>
             </updates>
         </layout>
+        <translate>
+            <modules>
+                <billie_core>
+                    <files>
+                        <default>billie_core.csv</default>
+                    </files>
+                </billie_core>
+            </modules>
+        </translate>
     </adminhtml>
     <frontend>
         <translate>

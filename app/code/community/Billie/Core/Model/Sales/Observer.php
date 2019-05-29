@@ -6,6 +6,7 @@ class Billie_Core_Model_Sales_Observer
 {
 
     const paymentmethodCode = 'payafterdelivery';
+    const duration = 'payment/payafterdelivery/duration';
 
     public function createOrder($observer)
     {
@@ -21,7 +22,6 @@ class Billie_Core_Model_Sales_Observer
 
         $billieOrderData = Mage::helper('billie_core/sdk')->mapCreateOrderData($order);
 
-//        mage::log($billieOrderData,null,'hdtedt.log',true);
         try {
             // initialize Billie Client
 
@@ -35,6 +35,7 @@ class Billie_Core_Model_Sales_Observer
 
             $payment->setData('billie_viban', $billieResponse->bankAccount->iban);
             $payment->setData('billie_vbic', $billieResponse->bankAccount->bic);
+            $payment->setData('billie_duration', intval( Mage::getStoreConfig(self::duration)));
             $payment->save();
             $order->save();
 
