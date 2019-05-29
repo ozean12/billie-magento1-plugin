@@ -22,18 +22,20 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $billingAddress = $order->getBillingAddress();
         $shippingAddress = $order->getShippingAddress();
         $payment = $order->getPayment();
-        $customerId = $order->getCustomerId()?$order->getCustomerId():$order->getCustomerEmail();
 
+        $customerId = $order->getCustomerId()?$order->getCustomerId():$order->getCustomerEmail();
 
         $command = new Billie\Command\CreateOrder();
 
 //// Company information
-        $command->debtorCompany = new Billie\Model\Company($customerId, $billingAddress->getCompany(), $this->mapAddress($billingAddress));
+        $command->debtorCompany = new Billie\Model\Company($customerId, $payment->getBillieCompany(), $this->mapAddress($billingAddress));
         $command->debtorCompany->legalForm = $payment->getBillieLegalForm();
+        $command->debtorCompany->taxId = $payment->getBillieTaxId();
+        $command->debtorCompany->registrationNumber = $payment->getBillieRegistrationNumber();
 //
 //// Information about the person
         $command->debtorPerson = new Billie\Model\Person($billingAddress->getEmail());
-        $command->debtorPerson->salution = ($order->getCustomerGender() ? 'm' : 'f');
+        $command->debtorPerson->salution = ($payment->getBillieSalutation() ? 'm' : 'f');
 //
 //// Delivery Address
         $command->deliveryAddress = $this->mapAddress($shippingAddress);
@@ -42,10 +44,9 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command->amount = new Billie\Model\Amount(($order->getBaseSubtotal()+$order->getBaseShippingAmount())*100, $order->getGlobalCurrencyCode(), $order->getBaseTaxAmount()*100); // amounts are in cent!
 //
 //// Define the due date in DAYS AFTER SHIPPMENT
-        $command->duration = Mage::getStoreConfig(self::duration); // meaning: when the order is shipped on the 1st May, the
+        $command->duration = intval( Mage::getStoreConfig(self::duration) );
 
         return $command;
-
     }
 
     /**
@@ -61,7 +62,6 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command->orderId = $order->getIncrementId();
         $command->invoiceNumber = $order->getInvoiceCollection()->getFirstItem()->getIncrementId();
         $command->invoiceUrl = Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf';
-//        $command->invoiceUrl = str_replace('//','/',Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf');
 
         return $command;
     }

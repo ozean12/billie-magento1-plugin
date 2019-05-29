@@ -14,7 +14,7 @@ class Billie_Core_Helper_Log extends Mage_Core_Helper_Abstract
 
             'store_id' => Mage::app()->getStore()->getStoreId(),
             'order_id' => $order->getId(),
-            'reference_id' => $response->referenceId?$response->referenceId:$order->getBillieReferenceId(),
+            'reference_id' => $response->referenceId ? $response->referenceId : $order->getBillieReferenceId(),
             'transaction_tstamp' => time(),
             'created_at' => $order->getCreatedAt(),
             'customer_id' => $order->getCustomerId(),
@@ -23,14 +23,8 @@ class Billie_Core_Helper_Log extends Mage_Core_Helper_Abstract
             'request' => serialize($request),
             'billie_state' => $response->state
         );
-        try{
-            $log->setData($logData);
-            $log->save();
-        } catch (Exception $e){
-
-            mage::log($e->getMessage(),null,'hdtedt.log',true);
-
-        }
+        $log->setData($logData);
+        $log->save();
 
     }
 

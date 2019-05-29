@@ -17,6 +17,10 @@ class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block
         {
             $data[Mage::helper('payment')->__('VIBAN')] = $this->getInfo()->getBillieViban();
         }
+        if ($this->getInfo()->getBillieRegistrationNumber())
+        {
+            $data[Mage::helper('payment')->__('Registration Number')] = $this->getInfo()->getBillieRegistrationNumber();
+        }
 
 
         $transport = parent::_prepareSpecificInformation($transport);

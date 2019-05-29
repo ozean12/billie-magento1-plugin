@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Billie_Core>
-            <version>0.1.4</version>
+            <version>0.1.5</version>
         </Billie_Core>
     </modules>
     <global>
@@ -11,6 +11,18 @@
                 <billie_legal_form>
                     <to_order_payment>*</to_order_payment>
                 </billie_legal_form>
+                <billie_registration_number>
+                    <to_order_payment>*</to_order_payment>
+                </billie_registration_number>
+                <billie_tax_id>
+                    <to_order_payment>*</to_order_payment>
+                </billie_tax_id>
+                <billie_company>
+                    <to_order_payment>*</to_order_payment>
+                </billie_company>
+                <billie_salutation>
+                    <to_order_payment>*</to_order_payment>
+                </billie_salutation>
             </sales_convert_quote_payment>
         </fieldsets>
         <models>

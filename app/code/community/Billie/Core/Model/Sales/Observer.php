@@ -1,5 +1,7 @@
 <?php
 
+use Billie\Exception\InvalidCommandException;
+
 class Billie_Core_Model_Sales_Observer
 {
 
@@ -17,8 +19,10 @@ class Billie_Core_Model_Sales_Observer
             return;
         }
 
+        $billieOrderData = Mage::helper('billie_core/sdk')->mapCreateOrderData($order);
+
+//        mage::log($billieOrderData,null,'hdtedt.log',true);
         try {
-            $billieOrderData = Mage::helper('billie_core/sdk')->mapCreateOrderData($order);
             // initialize Billie Client
 
             $client = Mage::Helper('billie_core/sdk')->clientCreate();
@@ -36,8 +40,17 @@ class Billie_Core_Model_Sales_Observer
 
 
 
-        } catch (Exception $e) {
+        }catch (InvalidCommandException $e){
 
+            $errorMsg = $e->getViolations()[0];
+
+            Mage::Helper('billie_core/log')->billieLog($order, $billieOrderData, $errorMsg);
+            Mage::throwException($errorMsg);
+
+        }
+        catch (Exception $e) {
+
+            mage::log($e->getViolations,null,'hdtedt.log',true);
             Mage::throwException($e->getMessage());
 
         }
