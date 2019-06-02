@@ -10,6 +10,7 @@
         <billie_core translate="label" module="billie_core">
             <label>Billie Core Config</label>
             <tab>Billie</tab>
+            <header_css>billie-config-header</header_css>
             <frontend_type>text</frontend_type>
             <sort_order>20</sort_order>
             <show_in_default>1</show_in_default>

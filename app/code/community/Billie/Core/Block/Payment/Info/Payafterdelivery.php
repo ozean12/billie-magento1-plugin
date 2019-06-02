@@ -1,23 +1,14 @@
 <?php
-
 class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block_Info
 {
 
-
     const duration = 'payment/payafterdelivery/duration';
 
-    /**
-     * Set PayPal Plus template in construct
-     */
-    protected function _construct()
-    {
-        parent::_construct();
-        $this->setTemplate('billie/core/payment/info.phtml');
-    }
 
     protected function _prepareSpecificInformation($transport = null)
     {
-        if (null !== $this->_paymentSpecificInformation) {
+        if (null !== $this->_paymentSpecificInformation)
+        {
             return $this->_paymentSpecificInformation;
         }
 
