@@ -15,15 +15,6 @@
             <action method="addCss">
                 <name>billie/billie.css</name>
             </action>
-<!--            <action method="setCanLoadExtJs"><flag>1</flag></action>-->
-<!--            <action method="addJs"><script>prototype/window.js</script></action>-->
-<!--            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>-->
-<!--            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/payone.css</name></action>-->
         </reference>
-
-<!--        <reference name="content">-->
-<!--            <block type="core/template" name="payone.config.tooltip"-->
-<!--                   template="payone/core/system/config/tooltip/window.phtml" />-->
-<!--        </reference>-->
     </default>
 </layout>

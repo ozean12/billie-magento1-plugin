@@ -28,4 +28,9 @@ class Billie_Core_Helper_Data extends Mage_Core_Helper_Abstract {
     }
 
 
+    public function getCompany(){
+
+        return $this->htmlEscape(Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getCompany());
+
+    }
 }

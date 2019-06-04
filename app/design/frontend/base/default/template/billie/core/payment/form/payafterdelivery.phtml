@@ -2,11 +2,29 @@
 $allLegalForms = $this->helper('billie_core')->getAllLegalForms();
 ?>
 <div class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+
+    <div>
+        <label><?php echo $this->__('Salutation') ?>*</label>
+        <span>
+            <input type="radio" id="female" title="<?php echo $this->__('Female') ?>" name="payment[billie_salutation]"
+                   value="0"  /><label for="female"><?php echo $this->__('Female') ?></label>
+            <input type="radio" id="male" title="<?php echo $this->__('Male') ?>" name="payment[billie_salutation]"
+                   value="0"  class="validate-one-required"/><label for="male"><?php echo $this->__('Male') ?></label>
+        </span>
+    </div>
+    <div>
+        <label><?php echo $this->__('Name') ?></label>
+        <span>
+            <input type="text" title="<?php echo $this->__('Name') ?>"
+                   value="<?php echo $this->htmlEscape(Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getName()) ?>" readonly/>
+        </span>
+    </div>
+    <div>
     <div>
         <label><?php echo $this->__('Company') ?>*</label>
         <span>
             <input type="text" title="<?php echo $this->__('Company') ?>" name="payment[billie_company]"
-                   value="<?php echo $this->htmlEscape(Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getCompany()) ?>" class="required-entry"/>
+                   value="<?php echo $this->htmlEscape($this->getInfoData('billie_company')?$this->getInfoData('billie_company'):Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getCompany()) ?>" <?php echo Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getCompany()?'readonly':'class="required-entry"' ?>/>
         </span>
         </div>
     <div>
@@ -18,15 +36,6 @@ $allLegalForms = $this->helper('billie_core')->getAllLegalForms();
                       <option value="<?php echo $legalForm['code'] ?>"><?php echo $legalForm['label'] ?></option>
                   <?php endforeach; ?>
             </select>
-        </span>
-    </div>
-    <div>
-        <label><?php echo $this->__('Salutation') ?>*</label>
-        <span>
-            <input type="radio" id="female" title="<?php echo $this->__('Female') ?>" name="payment[billie_salutation]"
-                   value="0"  /><label for="female"><?php echo $this->__('Female') ?></label>
-            <input type="radio" id="male" title="<?php echo $this->__('Male') ?>" name="payment[billie_salutation]"
-                   value="0"  class="validate-one-required"/><label for="male"><?php echo $this->__('Male') ?></label>
         </span>
     </div>
     <div id="billie_tax_id_wrap" style="display: none">
