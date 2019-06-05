@@ -73,8 +73,7 @@ class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block
 
             $date = strtotime($shipping->getCreatedAt());
             $newDate = date('d.m.Y', strtotime(Mage::getStoreConfig(self::duration) . " day", $date));
-            $duration = $newDate;//Mage::getStoreConfig(self::duration);
-
+            $duration = $newDate;
 
         } else {
 

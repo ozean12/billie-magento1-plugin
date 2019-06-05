@@ -27,7 +27,6 @@ class Billie_Core_Block_Adminhtml_Transaction_Log_View extends Mage_Adminhtml_Bl
            return $this->_getHelper()->__("New");
     }
 
-
     /**
      * Get URL for back (reset) button
      *
@@ -37,8 +36,5 @@ class Billie_Core_Block_Adminhtml_Transaction_Log_View extends Mage_Adminhtml_Bl
     {
         return $this->getUrl('*/*/index');
     }
-
-
-
 
 }

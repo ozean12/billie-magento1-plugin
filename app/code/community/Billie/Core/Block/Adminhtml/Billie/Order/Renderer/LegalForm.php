@@ -7,7 +7,6 @@ class Billie_Core_Block_Adminhtml_Billie_Order_Renderer_LegalForm extends Mage_A
 
         $value =  $row->getData($this->getColumn()->getIndex());
         $payment = Mage::getModel('sales/order_payment')->load($value,'parent_id');
-//        $payment = $order->getPaymentMethod();
 
         return Mage::helper('billie_core')->getLegalFormByCode($payment->getBillieLegalForm());
     }

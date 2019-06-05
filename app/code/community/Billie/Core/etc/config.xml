@@ -127,14 +127,18 @@
                     <children>
                         <system>
                             <children>
-                                <billie_core translate="title" module="billie_core">
-                                    <title>Billie Core Payment</title>
-                                </billie_core>
                                 <config>
                                     <children>
                                         <billie_core translate="title" module="billie_core">
-                                            <title>Payment Config</title>
+                                            <title>Billie Core Payment</title>
                                         </billie_core>
+                                        <config>
+                                            <children>
+                                                <billie_core translate="title" module="billie_core">
+                                                    <title>Payment Config</title>
+                                                </billie_core>
+                                            </children>
+                                        </config>
                                     </children>
                                 </config>
                             </children>

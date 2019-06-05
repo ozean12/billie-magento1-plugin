@@ -35,24 +35,24 @@
 					</billie_core>
 				</children>
 			</admin>
-<!--			<admin>-->
-<!--                <children>-->
-<!--                    <system>-->
-<!--                        <children>-->
-<!--                            <config>-->
-<!--                                <children>-->
-<!--                                    <abo>-->
-<!--                                        <title>Abos</title>-->
-<!--                                    </abo>-->
-<!--									<address>-->
-<!--										<title>Abo Address</title>-->
-<!--									</address>-->
-<!--                                </children>-->
-<!--                            </config>-->
-<!--                        </children>-->
-<!--                    </system>-->
-<!--                </children>-->
-<!--            </admin>-->
+			<admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <billie_transaction_log>
+                                        <title>Transaction log</title>
+                                    </billie_transaction_log>
+									<billie_orders>
+										<title>Billie Orders</title>
+									</billie_orders>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
 		</resources>
 	</acl>
 </config>
