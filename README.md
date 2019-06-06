@@ -33,8 +33,6 @@ to
         <input type="text" id="billing:company" name="billing[company]" value="<?php echo $this->escapeHtml($this->getAddress()->getCompany()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Company')) ?>" class="input-text required <?php echo $this->helper('customer/address')->getAttributeValidationClass('company') ?>" />                        
     </div>    
 
-
-
 ## Contact
 Billie GmbH<br/>
 Charlottenstraße 4<br/>
