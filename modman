@@ -5,6 +5,7 @@ app/etc/modules/Billie_Core.xml app/etc/modules/Billie_Core.xml
 
 app/design/adminhtml/default/default/layout/billie_core.xml app/design/adminhtml/default/default/layout/billie_core.xml
 app/design/adminhtml/default/default/template/billie/core app/design/adminhtml/default/default/template/billie/core
+app/design/frontend/base/default/layout/billie_core.xml app/design/frontend/base/default/layout/billie_core.xml
 app/design/frontend/base/default/template/billie/core app/design/frontend/base/default/template/billie/core
 
 app/locale/de_DE/billie_core.csv app/locale/de_DE/billie_core.csv
@@ -12,3 +13,4 @@ app/locale/de_DE/billie_core.csv app/locale/de_DE/billie_core.csv
 lib/Billie lib/Billie
 
 skin/adminhtml/default/default/billie skin/adminhtml/default/default/billie
+skin/frontend/base/default/billie skin/frontend/base/default/billie

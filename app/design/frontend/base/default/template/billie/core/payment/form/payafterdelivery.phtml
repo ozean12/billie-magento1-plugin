@@ -7,9 +7,9 @@ $allLegalForms = $this->helper('billie_core')->getAllLegalForms();
         <label><?php echo $this->__('Salutation') ?>*</label>
         <span>
             <input type="radio" id="female" title="<?php echo $this->__('Female') ?>" name="payment[billie_salutation]"
-                   value="0"  /><label for="female"><?php echo $this->__('Female') ?></label>
+                   value="0"  <? echo Mage::helper('billie_core')->compareSalutation('female') ?>/><label for="female"><?php echo $this->__('Female') ?></label>
             <input type="radio" id="male" title="<?php echo $this->__('Male') ?>" name="payment[billie_salutation]"
-                   value="0"  class="validate-one-required"/><label for="male"><?php echo $this->__('Male') ?></label>
+                   value="0"  <? echo Mage::helper('billie_core')->compareSalutation('male') ?> class="validate-one-required"/><label for="male"><?php echo $this->__('Male') ?></label>
         </span>
     </div>
     <div>
