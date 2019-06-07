@@ -10,10 +10,20 @@ Billie Paymentmethod for Magento 1.9.x
 
 Download Source and copy into Magento root folder<br/>
 Clear Magento Caches and login again<br/>
-Goto System -> Configuration -> Billie and configure housenumber and invoice URL<br/>
+Goto System -> Configuration -> Billie Core Config
+![Billie Core Configuration](docs/img/billie_core_config_select.png)
+
+Billie and configure housenumber and invoice URL<br/>
+![Billie Core Configuration](docs/img/billie_core_config.png)
+
 Goto Paymentmethods and configure Billie PayAfterDelivery method.<br/>
-Goto System -> Configuration -> Customer -> Create Account -> enable Vat visibility in frontend
+![Billie Core Configuration](docs/img/billie_core_payment.png)
+
 Ready to go
+
+Additional configuration<br/>
+Goto System -> Configuration -> Customer -> Create account -> enable Vat visibility in frontend<br/>
+Goto System -> Configuration -> Customer -> Customer address head -> Enable prefix and use for male one of (Male,Mister,Herr,Mann) and for female one of (Female,Miss,Frau)
 
 ##Information
 
