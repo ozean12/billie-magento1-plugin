@@ -1,6 +1,5 @@
 <?php
 
-use Billie\Exception\InvalidCommandException;
 
 class Billie_Core_Model_Sales_Observer
 {
@@ -41,17 +40,16 @@ class Billie_Core_Model_Sales_Observer
 
 
 
-        }catch (InvalidCommandException $e){
+        }catch (\Billie\Exception\BillieException $e){
 
-            $errorMsg = $e->getViolations()[0];
+            $errorMsg = Mage::helper('billie_core')->__($e->getBillieCode());
 
-            Mage::Helper('billie_core/log')->billieLog($order, $billieOrderData, $errorMsg);
+            Mage::Helper('billie_core/log')->billieLog($order, $billieOrderData,$errorMsg );
             Mage::throwException($errorMsg);
 
         }
         catch (Exception $e) {
 
-            mage::log($e->getViolations,null,'hdtedt.log',true);
             Mage::throwException($e->getMessage());
 
         }
