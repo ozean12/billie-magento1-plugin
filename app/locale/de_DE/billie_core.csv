@@ -3,6 +3,7 @@
 "Billie Order History","Billie Bestellungsübersicht"
 "Billie PayAfterDelivery:  The transaction with the id %s was successfully canceled.","Billie PayAfterDelivery: Die Bestellung mit der ID %s wurde erfolgreich storniert"
 "Billie PayAfterDelivery: payment accepted for %s","Billie PayAfterDelivery: Die Bezahlung für %s wurde akzeptiert"
+"Billie Transaction Log","Billie Transaction Log"
 "Duration","Zahlungsziel"
 "Female","Frau"
 "HR-NR","HR-NR"

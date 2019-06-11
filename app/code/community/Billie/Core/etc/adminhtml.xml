@@ -6,12 +6,12 @@
 			<sort_order>97</sort_order>
 			<children>
 				<billie_orders>
-					<title>Billie Orders</title>
+					<title>Billie Order History</title>
 					<sort_order>5</sort_order>
 					<action>adminhtml/billie_order</action>
 				</billie_orders>
 				<billie_transaction_log>
-					<title>Transaction Log</title>
+					<title>Billie Transaction Log</title>
 					<sort_order>10</sort_order>
 					<action>adminhtml/transaction_log</action>
 				</billie_transaction_log>
