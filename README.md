@@ -32,22 +32,6 @@ Additional configuration<br/>
 Goto System -> Configuration -> Customer -> Create account -> enable Vat visibility in frontend<br/>
 Goto System -> Configuration -> Customer -> Customer address head -> Enable prefix and use for male one of (Male,Mister,Herr,Mann) and for female one of (Female,Miss,Frau)
 
-## Information
-
-Change in file app/design/frontend/base/default/template/checkout/onepage/billing.phtml and app/design/frontend/base/default/template/persistent/onepage/billing.phtml or in your local theme folder
-
-
-    <label for="billing:company"><?php echo $this->__('Company') ?></label>
-    <div class="input-box">
-        <input type="text" id="billing:company" name="billing[company]" value="<?php echo $this->escapeHtml($this->getAddress()->getCompany()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Company')) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('company') ?>" />
-    </div>    
-to
-    
-    <label for="billing:company" class="required"><em>*</em><?php echo $this->__('Company') ?></label>
-    <div class="input-box">
-        <input type="text" id="billing:company" name="billing[company]" value="<?php echo $this->escapeHtml($this->getAddress()->getCompany()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Company')) ?>" class="input-text required <?php echo $this->helper('customer/address')->getAttributeValidationClass('company') ?>" />                        
-    </div>    
-
 ## Dokumentation
 
 #### Billie orders:
