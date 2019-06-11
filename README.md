@@ -1,4 +1,4 @@
-#Billie Pay after delivery
+# Billie Pay after delivery
 
 Billie Paymentmethod for Magento 1.9.x
 
@@ -25,7 +25,7 @@ Additional configuration<br/>
 Goto System -> Configuration -> Customer -> Create account -> enable Vat visibility in frontend<br/>
 Goto System -> Configuration -> Customer -> Customer address head -> Enable prefix and use for male one of (Male,Mister,Herr,Mann) and for female one of (Female,Miss,Frau)
 
-##Information
+## Information
 
 by install billie pay after delivery. The company field becomes mandatory. 
 
@@ -45,7 +45,7 @@ to
 
 ## Dokumentation
 
-####Billie orders:
+#### Billie orders:
 ![Billie Core Configuration](docs/img/billie_core_magento_menu.png)
 
 
@@ -64,7 +64,7 @@ Under Billie Payments -> Billie Order you find all orders made with billie payme
 
 ![Billie Core Configuration](docs/img/billie_core_payment_history.png)
 
-####Order Detail
+#### Order Detail
 
 In order detail you find the payment information block. Where you can find find the payment information for the client.
 ![Billie Core Configuration](docs/img/billie_core_order.png)
