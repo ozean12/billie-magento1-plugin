@@ -38,7 +38,7 @@ Goto System -> Configuration -> Customer -> Customer address head -> Enable pref
 ![Billie Core Configuration](docs/img/billie_core_magento_menu.png)
 
 
-Under Billie Payments -> Billie Order you find all orders made with billie payment. You can sort and filter the columns as needed. The grid contains the following data<br/>
+Under Billie Payments -> Billie Order you find all orders made with Billie. You can sort and filter the columns as needed. The grid contains the following data<br/>
 
 * Bestellung: magento order increment_id
 * Bestellt in (Store): Storeview
@@ -64,7 +64,7 @@ In comment history you can find all billie actions only viewable for the admin
 Before Billie is invoicing the client. The order has to be invoiced and shipped. There for use the magento default buttons.
 ![Billie Core Configuration](docs/img/billie_core_order_actions.png)
 
-You can cancel an order with magento default cancel button. Notice that an order which is already pay out can't be pay back by billie. You will get an notice in magento.
+You can cancel an order with the Magento default cancel button. Notice that an order which is already paid back by the debtor can't be canceled with Billie anymore.
 
 ## Contact
 Billie GmbH<br/>
