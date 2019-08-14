@@ -18,6 +18,23 @@ class Billie_Core_Model_Payment_Payafterdelivery extends Mage_Payment_Model_Meth
             $info->setBillieViban($data->getBillieViban());
         }
 
+        if ($data->getBillieVatId()) {
+            $info->setBillieVatId($data->getBillieVatId());
+        }
+
+        if ($data->getBillieRegistrationNumber()) {
+            $info->setBillieRegistrationNumber($data->getBillieRegistrationNumber());
+        }
+
+        if ($data->getBillieCompany()) {
+            $info->setBillieCompany($data->getBillieCompany());
+        }
+
+        if ($data->getBillieSalutation()) {
+            $info->setBillieSalutation($data->getBillieSalutation());
+        }
+
+
         return $this;
     }
 

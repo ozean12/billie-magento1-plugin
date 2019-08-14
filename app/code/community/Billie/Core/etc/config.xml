@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Billie_Core>
-            <version>0.1.2</version>
+            <version>0.1.6</version>
         </Billie_Core>
     </modules>
     <global>
@@ -11,6 +11,18 @@
                 <billie_legal_form>
                     <to_order_payment>*</to_order_payment>
                 </billie_legal_form>
+                <billie_registration_number>
+                    <to_order_payment>*</to_order_payment>
+                </billie_registration_number>
+                <billie_tax_id>
+                    <to_order_payment>*</to_order_payment>
+                </billie_tax_id>
+                <billie_company>
+                    <to_order_payment>*</to_order_payment>
+                </billie_company>
+                <billie_salutation>
+                    <to_order_payment>*</to_order_payment>
+                </billie_salutation>
             </sales_convert_quote_payment>
         </fieldsets>
         <models>
@@ -20,6 +32,11 @@
             </billie_core>
             <billie_core_resource>
                 <class>Billie_Core_Model_Resource</class>
+                <entities>
+                    <transaction_log>
+                        <table>billie_transaction_log</table>
+                    </transaction_log>
+                </entities>
             </billie_core_resource>
         </models>
         <blocks>
@@ -110,14 +127,18 @@
                     <children>
                         <system>
                             <children>
-                                <billie_core translate="title" module="billie_core">
-                                    <title>Billie Core Payment</title>
-                                </billie_core>
                                 <config>
                                     <children>
                                         <billie_core translate="title" module="billie_core">
-                                            <title>Payment Config</title>
+                                            <title>Billie Core Payment</title>
                                         </billie_core>
+                                        <config>
+                                            <children>
+                                                <billie_core translate="title" module="billie_core">
+                                                    <title>Payment Config</title>
+                                                </billie_core>
+                                            </children>
+                                        </config>
                                     </children>
                                 </config>
                             </children>
@@ -126,6 +147,22 @@
                 </admin>
             </resources>
         </acl>
+        <layout>
+            <updates>
+                <billie_core>
+                    <file>billie_core.xml</file>
+                </billie_core>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <billie_core>
+                    <files>
+                        <default>billie_core.csv</default>
+                    </files>
+                </billie_core>
+            </modules>
+        </translate>
     </adminhtml>
     <frontend>
         <translate>
@@ -137,5 +174,23 @@
                 </billie_core>
             </modules>
         </translate>
+        <layout>
+            <updates>
+                <billie_core>
+                    <file>billie_core.xml</file>
+                </billie_core>
+            </updates>
+        </layout>
     </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Billie_Core before="Mage_Adminhtml">Billie_Core_Adminhtml</Billie_Core>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
 </config>

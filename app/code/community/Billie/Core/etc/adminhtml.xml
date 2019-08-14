@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<menu>
+		<billie_core>
+			<title>Billie Payment</title>
+			<sort_order>97</sort_order>
+			<children>
+				<billie_orders>
+					<title>Billie Order History</title>
+					<sort_order>5</sort_order>
+					<action>adminhtml/billie_order</action>
+				</billie_orders>
+				<billie_transaction_log>
+					<title>Billie Transaction Log</title>
+					<sort_order>10</sort_order>
+					<action>adminhtml/transaction_log</action>
+				</billie_transaction_log>
+			</children>
+		</billie_core>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<billie_core module="adminhtml">
+						<title>Billie Payment</title>
+						<children>
+							<billie_transaction_log>
+								<title>Transaction log</title>
+							</billie_transaction_log>
+							<billie_orders>
+								<title>Billie Orders</title>
+							</billie_orders>
+						</children>
+					</billie_core>
+				</children>
+			</admin>
+			<admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <billie_transaction_log>
+                                        <title>Transaction log</title>
+                                    </billie_transaction_log>
+									<billie_orders>
+										<title>Billie Orders</title>
+									</billie_orders>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+		</resources>
+	</acl>
+</config>

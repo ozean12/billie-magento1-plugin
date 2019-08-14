@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_transaction_log_index>
+        <reference name="content">
+            <block type="billie_core/adminhtml_transaction_log" name="billie_core"/>
+        </reference>
+    </adminhtml_transaction_log_index>
+    <adminhtml_transaction_log_view>
+        <reference name="content">
+            <block type="billie_core/adminhtml_transaction_log_view" name="billie_log_view"/>
+        </reference>
+    </adminhtml_transaction_log_view>
+    <adminhtml_billie_order_index>
+        <reference name="content">
+            <block type="billie_core/adminhtml_billie_order" name="billie_core_billie_order" />
+        </reference>
+    </adminhtml_billie_order_index>
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <name>billie/billie.css</name>
+            </action>
+        </reference>
+    </default>
+</layout>

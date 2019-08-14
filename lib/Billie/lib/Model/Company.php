@@ -50,10 +50,6 @@ class Company
      * @var string legal form of the company - e.g. UG, GmbH, GbR
      */
     public $legalForm;
-    /**
-     * @var bool Has the customer ordered before?
-     */
-    public $establishedCustomer;
 
     /**
      * Company constructor.
@@ -78,6 +74,22 @@ class Company
     }
 
     /**
+     * @return bool
+     */
+    public function hasValidLegalFormInformation()
+    {
+        if (empty($this->taxId) && LegalFormProvider::isVatIdRequired($this->legalForm)) {
+            return false;
+        }
+
+        if (empty($this->registrationNumber) && empty($this->registrationCourt) && LegalFormProvider::isRegistrationIdRequired($this->legalForm)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * @param ClassMetadata $metadata
      */
     public static function loadValidatorMetadata(ClassMetadata $metadata)
@@ -85,9 +97,10 @@ class Company
         $metadata->addPropertyConstraint('name', new Assert\NotBlank());
         $metadata->addPropertyConstraints('address', [
             new Assert\NotNull(),
-            new Assert\Valid()
+            new Assert\Valid(['groups' => ['Default', 'company_address']])
         ]);
         $metadata->addPropertyConstraint('legalForm', new Assert\NotBlank());
         $metadata->addGetterConstraint('validLegalForm', new Assert\IsTrue());
+        $metadata->addGetterConstraint('validLegalFormInformation', new Assert\IsTrue(['message' => 'Please provide required legal information.']));
     }
 }

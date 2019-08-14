@@ -34,7 +34,7 @@ class CreateOrderMapper
                 'email' => $object->debtorPerson->email
             ],
             'debtor_company' => [
-                'merchant_customer_id' => $object->debtorCompany->customerId ?: Uuid::uuid4()->toString(),
+                'merchant_customer_id' => $object->debtorCompany->customerId ?: $object->debtorPerson->email,
                 'name' => $object->debtorCompany->name,
                 'address_addition' => $object->debtorCompany->address->addition,
                 'address_house_number' => $object->debtorCompany->address->houseNumber,
@@ -50,7 +50,6 @@ class CreateOrderMapper
                 'subindustry_sector' => 'n/a',
                 'employees_number' => $object->debtorCompany->countOfEmployees,
                 'legal_form' => $object->debtorCompany->legalForm,
-                'established_customer' => $object->debtorCompany->establishedCustomer
             ],
             'delivery_address' => [
                 'addition' => $object->deliveryAddress->addition,
