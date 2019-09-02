@@ -1,0 +1,96 @@
+<?php
+$allLegalForms = $this->helper('billie_core')->getAllLegalForms();
+?>
+<div class="form-list" id="payment_form_<?php echo $this->getMethodCode() ?>" style="display:none;">
+
+    <div>
+        <label><?php echo $this->__('Salutation') ?>*</label>
+        <span>
+            <input type="radio" id="female" title="<?php echo $this->__('Female') ?>" name="payment[billie_salutation]"
+                   value="0"  <? echo $this->compareSalutation('female') ?>/><label
+                    for="female"><?php echo $this->__('Female') ?></label>
+            <input type="radio" id="male" title="<?php echo $this->__('Male') ?>" name="payment[billie_salutation]"
+                   value="1"  <? echo $this->compareSalutation('male') ?> class="validate-one-required"/><label
+                    for="male"><?php echo $this->__('Male') ?></label>
+        </span>
+    </div>
+    <div>
+        <label><?php echo $this->__('Name') ?></label>
+        <span>
+            <input type="text" title="<?php echo $this->__('Name') ?>"
+                   value="<?php echo $this->htmlEscape($this->getBillingName()) ?>" readonly/>
+        </span>
+    </div>
+    <div>
+        <label><?php echo $this->__('Company') ?>*</label>
+        <span>
+            <input type="text" title="<?php echo $this->__('Company') ?>" name="payment[billie_company]"
+                   value="<?php echo $this->htmlEscape($this->getCompany()) ?>" <?php echo $this->getCompany() ? 'readonly' : 'class="required-entry"' ?>/>
+        </span>
+    </div>
+    <div>
+        <label><?php echo $this->__('Legal Form') ?>*</label>
+        <span>
+            <select title="<?php echo $this->__('Legal Form') ?>" name="payment[billie_legal_form]"
+                    id="billie_legal_form" class="required-entry  validate-select">
+                  <option value=""><?php echo $this->__('please select') ?></option>
+                  <?php foreach ($allLegalForms as $legalForm): ?>
+                      <option value="<?php echo $legalForm['code'] ?>"><?php echo $legalForm['label'] ?></option>
+                  <?php endforeach; ?>
+            </select>
+        </span>
+    </div>
+    <div id="billie_tax_id_wrap" style="display: none">
+        <label><?php echo $this->__('VAT ID') ?>*</label>
+        <span>
+            <input type="text" title="<?php echo $this->__('VAT ID') ?>" id="billie_tax_id"
+                   name="payment[billie_tax_id]"
+                   value="<?php echo $this->htmlEscape(Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getVatId()) ?>"
+                   disabled="disabled" class="required-entry"/>
+        </span>
+    </div>
+    <div id="billie_registration_number_wrap" style="display: none">
+        <label><?php echo $this->__('HR-NR') ?>*</label>
+        <span>
+            <input type="text" title="<?php echo $this->__('HR-NR') ?>" id="billie_registration_number"
+                   name="payment[billie_registration_number]"
+                   value="<?php echo $this->htmlEscape($this->getInfoData('billie_registration_number')) ?>"
+                   disabled="disabled" class="required-entry"/>
+        </span>
+    </div>
+    <div>
+        <?php echo $this->getMethod()->getConfigData('message'); ?>
+    </div>
+    <script type="text/javascript">
+
+        legalForms = JSON.parse('<?php echo json_encode($allLegalForms) ?>');
+        Event.observe($("billie_legal_form"), 'change', function (select) {
+            selectedLegalForm = $("billie_legal_form").getValue();
+            if (legalForms[selectedLegalForm]["vat_id_required"]) {
+
+                $('billie_tax_id').enable();
+                $('billie_tax_id_wrap').show();
+
+
+            } else {
+
+                $('billie_tax_id').disable();
+                $('billie_tax_id_wrap').hide();
+
+            }
+
+            if (legalForms[selectedLegalForm]["registration_id_required"]) {
+
+                $('billie_registration_number').enable();
+                $('billie_registration_number_wrap').show();
+
+            } else {
+
+                $('billie_registration_number').disable();
+                $('billie_registration_number_wrap').hide();
+
+            }
+
+        });
+
+    </script>

@@ -4,12 +4,9 @@
 "Billie PayAfterDelivery:  The transaction with the id %s was successfully canceled.","Billie PayAfterDelivery: Die Bestellung mit der ID %s wurde erfolgreich storniert"
 "Billie PayAfterDelivery: payment accepted for %s","Billie PayAfterDelivery: Die Bezahlung für %s wurde akzeptiert"
 "Billie Transaction Log","Billie Transaction Log"
-"DEBTOR_ADDRESS","Die Bestellung wurde abgelehnt, da der angegebene Name Ihres Unternehmens oder die Adresse nicht korrekt zu sein scheinen.
-Bitte achten Sie darauf, dass Ihr Firmenname sowie Ihre Rechnungsanschrift identisch mit dem registrierten Firmennamen und Firmensitz sind."
-"DEBTOR_LIMIT_EXCEEDED","Die Bestellung wurde abgelehnt, da der Betrag das verfügbare Limit für offene Bestellungen mit dieser Zahlungsart überschreitet.
-Bitte kontaktieren Sie unseren Kundenservice oder wählen Sie eine andere Zahlungsart."
-"DEBTOR_NOT_IDENTIFIED","Die Bestellung wurde abgelehnt, da kein Unternehmen mit den angegebenen Informationen gefunden werden konnte.
-Bitte überprüfen Sie die Angabe Ihres Firmennamens und Ihrer Rechnungsanschrift.<br/>Wenn das Problem weiterhin bestehen sollte, wählen Sie bitte eine andere Zahlungsart."
+"DEBTOR_ADDRESS","Die Bestellung wurde abgelehnt, da der angegebene Name Ihres Unternehmens oder die Adresse nicht korrekt zu sein scheinen. Bitte achten Sie darauf, dass Ihr Firmenname sowie Ihre Rechnungsanschrift identisch mit dem registrierten Firmennamen und Firmensitz sind."
+"DEBTOR_LIMIT_EXCEEDED","Die Bestellung wurde abgelehnt, da der Betrag das verfügbare Limit für offene Bestellungen mit dieser Zahlungsart überschreitet. Bitte kontaktieren Sie unseren Kundenservice oder wählen Sie eine andere Zahlungsart."
+"DEBTOR_NOT_IDENTIFIED","Die Bestellung wurde abgelehnt, da kein Unternehmen mit den angegebenen Informationen gefunden werden konnte. Bitte überprüfen Sie die Angabe Ihres Firmennamens und Ihrer Rechnungsanschrift.<br/>Wenn das Problem weiterhin bestehen sollte, wählen Sie bitte eine andere Zahlungsart."
 "Duration","Zahlungsziel"
 "Female","Frau"
 "HR-NR","HR-NR"
@@ -25,8 +22,7 @@ Bitte überprüfen Sie die Angabe Ihres Firmennamens und Ihrer Rechnungsanschrif
 "Pay after delivery","Bezahlen nach Versandt"
 "please select","Bitte wählen"
 "Registration Number","Handelsregisternummer"
-"RISK_POLICY","Wir können Ihnen leider die gewählte Zahlungsart zum aktuellen Zeitpunkt nicht anbieten.
-Bitte wählen Sie eine andere Zahlungsart."
+"RISK_POLICY","Wir können Ihnen leider die gewählte Zahlungsart zum aktuellen Zeitpunkt nicht anbieten. Bitte wählen Sie eine andere Zahlungsart."
 "Salutation","Anrede"
 "The input must be between 0 and 120","Bitte wählen Sie einen Wert zwischen 0 und 120 Tagen"
 "The input must be numeric only","Bitte geben Sie einen numerischen Wert an"

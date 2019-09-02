@@ -6,7 +6,6 @@ class Billie_Core_Model_Sales_Observer
 
     const paymentmethodCode = 'payafterdelivery';
     const duration = 'payment/payafterdelivery/duration';
-
     public function createOrder($observer)
     {
 
@@ -41,15 +40,20 @@ class Billie_Core_Model_Sales_Observer
 
 
         }catch (\Billie\Exception\BillieException $e){
-
             $errorMsg = Mage::helper('billie_core')->__($e->getBillieCode());
+
+            Mage::Helper('billie_core/log')->billieLog($order, $billieOrderData,$errorMsg );
+            Mage::throwException($errorMsg);
+
+        }catch (\Billie\Exception\InvalidCommandException $e){
+
+            $errorMsg = Mage::helper('billie_core')->__($e->getViolations()['0']);
 
             Mage::Helper('billie_core/log')->billieLog($order, $billieOrderData,$errorMsg );
             Mage::throwException($errorMsg);
 
         }
         catch (Exception $e) {
-
             Mage::throwException($e->getMessage());
 
         }

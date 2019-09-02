@@ -34,7 +34,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command->debtorCompany->registrationNumber = $payment->getBillieRegistrationNumber();
 //
 //// Information about the person
-        $command->debtorPerson = new Billie\Model\Person($billingAddress->getEmail());
+        $command->debtorPerson = new Billie\Model\Person($order->getCustomerEmail());
         $command->debtorPerson->salution = ($payment->getBillieSalutation() ? 'm' : 'f');
 //
 //// Delivery Address
