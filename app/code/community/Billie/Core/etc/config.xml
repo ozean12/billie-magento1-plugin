@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Billie_Core>
-            <version>0.1.6</version>
+            <version>0.2.0</version>
         </Billie_Core>
     </modules>
     <global>

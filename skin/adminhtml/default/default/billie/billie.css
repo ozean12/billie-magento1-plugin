@@ -3,3 +3,26 @@ h3.billie-config-header, h3.head-adminhtml-billie-order {
     padding: 0px 20px;
     color: #ff4338;
 }
+label[for=p_method_payafterdelivery] {
+     background: url(images/billie.png) no-repeat scroll 0px 1px;
+     padding: 4px 20px;
+     color: #ff4338;
+ }
+#payment_form_payafterdelivery div{
+
+    padding: 5px 0;
+
+}
+#payment_form_payafterdelivery label{
+    display: inline-block;
+    width:20%;
+}
+#payment_form_payafterdelivery span label{
+    width:inherit;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+#payment_form_payafterdelivery input[type=text]{
+    width:70%;
+    padding: 2px;
+}
