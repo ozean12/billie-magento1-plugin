@@ -3,6 +3,7 @@ class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block
 {
 
     const duration = 'payment/payafterdelivery/duration';
+    const billieBank = 'Deutsche Handelsbank';
 
 
     protected function _prepareSpecificInformation($transport = null)
@@ -25,8 +26,14 @@ class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block
         if ($this->getInfo()->getBillieVbic()) {
             $data[Mage::helper('billie_core')->__('VBIC')] = $this->getInfo()->getBillieVbic();
         }
-        if ($this->getInfo()->getBillieDuration() && $this->isAdmin()) {
+        if ($this->getInfo()->getBillieViban()) {
+            $data[Mage::helper('billie_core')->__('Bank')] = SELF::billieBank;
+        }
+        if ($this->getInfo()->getBillieDuration()) {
             $data[Mage::helper('billie_core')->__('Duration')] = $this->getDuration();
+        }
+        if ($this->getInfo()->getBillieViban()) {
+            $data[Mage::helper('billie_core')->__('Usage')] = $this->getInfo()->getOrder()->getIncrementId();
         }
         if ($this->getInfo()->getBillieRegistrationNumber() && !$this->isAdmin()) {
             $data[Mage::helper('billie_core')->__('Registration Number')] = $this->getInfo()->getBillieRegistrationNumber();
@@ -41,11 +48,16 @@ class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block
         return $transport->addData(array_merge($data, $transport->getData()));
     }
 
-    protected function isAdmin()
+    public function isAdmin()
     {
+        if(Mage::app()->getStore()->isAdmin()){
+            return true;
+        }
 
-        return Mage::app()->getStore()->isAdmin();
-
+        if(Mage::getDesign()->getArea() == 'adminhtml'){
+            return true;
+        }
+        return false;
     }
 
     protected function getStoreName()
