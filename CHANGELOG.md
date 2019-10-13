@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.2.1] - 2019-09-12
+### Changed
+- add street housenumber separation for single input field
+
 ## [0.2.0] - 2019-08-30
 ### Added
 - Admin Backend order function
