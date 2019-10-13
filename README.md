@@ -20,7 +20,7 @@ Clear Magento Caches and login again<br/>
 Goto System -> Configuration -> Billie Core Config
 ![Billie Core Configuration](docs/img/billie_core_config_select.png)
 
-Billie and configure housenumber and invoice URL<br/>
+Select a field for housenumber if it is a separate field and set your invoice URL<br/>
 ![Billie Core Configuration](docs/img/billie_core_config.png)
 
 Goto Paymentmethods and configure Billie PayAfterDelivery method.<br/>
