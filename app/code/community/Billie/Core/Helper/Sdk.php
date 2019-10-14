@@ -111,8 +111,8 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
     public function reduceAmount($order){
 
         $command = new Billie\Command\ReduceOrderAmount($order->getBillieReferenceId());
-        $newTotalAmount = $order->getData('subtotal_invoiced') - $order->getData('subtotal_refunded');
-        $newTaxAmount = $order->getData('tax_invoiced') - $order->getData('tax_refunded');
+        $newTotalAmount = $order->getData('subtotal_invoiced') + $order->getData('shipping_invoiced') - $order->getData('subtotal_refunded') - $order->getData('shipping_refunded');
+        $newTaxAmount = $order->getData('tax_invoiced') + $order->getData('shipping_tax_invoiced') - $order->getData('tax_refunded') - $order->getData('shipping_tax_refunded');
         $command->invoiceNumber = $order->getInvoiceCollection()->getFirstItem()->getIncrementId();
         $command->invoiceUrl = Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf';
         $command->amount = new Billie\Model\Amount($newTotalAmount*100, $order->getData('base_currency_code'), $newTaxAmount*100);
