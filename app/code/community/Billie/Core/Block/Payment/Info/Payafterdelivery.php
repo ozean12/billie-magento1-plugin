@@ -51,7 +51,7 @@ class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block
     protected function getStoreName()
     {
 
-        return Mage::getStoreConfig('general/store_information/name', $this->getStoreId());
+        return Mage::getStoreConfig('general/imprint/company_first', $this->getStoreId());
     }
 
     protected function getStoreId()
