@@ -26,6 +26,8 @@ Billie and configure housenumber and invoice URL<br/>
 Goto Paymentmethods and configure Billie PayAfterDelivery method.<br/>
 ![Billie Core Configuration](docs/img/billie_core_payment.png)
 
+Make sure your company name is set in System -> Configuration -> General -> General -> Imprint -> Company 1
+
 Ready to go
 
 Additional configuration<br/>
