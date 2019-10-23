@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - use invoice increment_id instead of id from order
+###Fixed
+- order with coupon all functions
 
 ## [0.2.2] - 2019-10-21
 ### Changed

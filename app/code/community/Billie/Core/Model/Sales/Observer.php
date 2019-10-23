@@ -138,6 +138,7 @@ class Billie_Core_Model_Sales_Observer
         }
 
         $client = Mage::Helper('billie_core/sdk')->clientCreate();
+
         try {
             if ($order->canCreditmemo()) {
 
@@ -151,7 +152,6 @@ class Billie_Core_Model_Sales_Observer
                     Mage::getSingleton('core/session')->addNotice(Mage::Helper('billie_core')->__('This transaction is already closed, refunds with billie payment are not possible anymore'));
 
                 } else {
-
 
                     $order->addStatusHistoryComment(Mage::Helper('billie_core')->__('Billie PayAfterDelivery:  The amount for transaction with the id %s was successfully reduced.', $order->getBillieReferenceId()));
                     $order->save();

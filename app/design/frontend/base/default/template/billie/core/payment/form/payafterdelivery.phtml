@@ -24,7 +24,7 @@ $allLegalForms = $this->helper('billie_core')->getAllLegalForms();
         <label><?php echo $this->__('Company') ?>*</label>
         <span>
             <input type="text" title="<?php echo $this->__('Company') ?>" name="payment[billie_company]"
-                   value="<?php echo $this->htmlEscape($this->getInfoData('billie_company')?$this->getInfoData('billie_company'):Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getCompany()) ?>" <?php echo Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getCompany()?'readonly':'class="required-entry"' ?>/>
+                   value="<?php echo Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getCompany() ?>" <?php echo Mage::getModel('checkout/cart')->getQuote()->getBillingAddress()->getCompany()?'readonly':'class="required-entry"' ?>/>
         </span>
         </div>
     <div>
