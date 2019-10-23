@@ -32,9 +32,11 @@ class Billie_Core_Block_Payment_Info_Payafterdelivery extends Mage_Payment_Block
         if ($this->getInfo()->getBillieDuration()) {
             $data[Mage::helper('billie_core')->__('Duration')] = $this->getDuration();
         }
-        $invoiceIncrementId = $this->getInvoiceIncrementId($this->getInfo()->getOrder());
-        if ($this->getInfo()->getBillieViban() && $invoiceIncrementId) {
-            $data[Mage::helper('billie_core')->__('Usage')] = $invoiceIncrementId;
+        if($this->getInfo()->getOrder()){
+            $invoiceIncrementId = $this->getInvoiceIncrementId($this->getInfo()->getOrder());
+            if ($this->getInfo()->getBillieViban() && $invoiceIncrementId) {
+                $data[Mage::helper('billie_core')->__('Usage')] = $invoiceIncrementId;
+            }
         }
         if ($this->getInfo()->getBillieRegistrationNumber() && !$this->isAdmin()) {
             $data[Mage::helper('billie_core')->__('Registration Number')] = $this->getInfo()->getBillieRegistrationNumber();
