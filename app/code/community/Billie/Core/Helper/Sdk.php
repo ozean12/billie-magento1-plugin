@@ -10,6 +10,25 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
     const invoiceUrl = 'billie_core/config/invoice_url';
 
 
+    /** @var mixed */
+    protected $storeId = null;
+
+    /**
+     * @param mixed $storeId
+     */
+    public function setStoreId($storeId)
+    {
+        $this->storeId = $storeId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStoreId()
+    {
+        return $this->storeId;
+    }
+
     /**
      * create billie CreateOrder object
      *
@@ -44,7 +63,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command->amount = new Billie\Model\Amount(($order->getBaseGrandTotal() - $order->getBaseTaxAmount())*100, $order->getGlobalCurrencyCode(), $order->getBaseTaxAmount()*100); // amounts are in cent!
 //
 //// Define the due date in DAYS AFTER SHIPPMENT
-        $command->duration = intval( Mage::getStoreConfig(self::duration) );
+        $command->duration = intval( Mage::getStoreConfig(self::duration,$this->getStoreId()) );
 
         return $command;
     }
@@ -61,7 +80,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $command = new Billie\Command\ShipOrder($order->getBillieReferenceId());
         $command->orderId = $order->getIncrementId();
         $command->invoiceNumber = $order->getInvoiceCollection()->getFirstItem()->getIncrementId();
-        $command->invoiceUrl = Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf';
+        $command->invoiceUrl = Mage::getStoreConfig(self::invoiceUrl,$this->getStoreId()).DS.$order->getIncrementId().'.pdf';
 
         return $command;
     }
@@ -75,10 +94,11 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 
     public function mapAddress($address)
     {
-        if(!Mage::getStoreConfig(self::housenumberField)) {
+
+        if(!Mage::getStoreConfig(self::housenumberField,$this->getStoreId())) {
             $housenumber = '';
-        }else if(Mage::getStoreConfig(self::housenumberField) != 'street'){
-            $housenumber = $address->getData(Mage::getStoreConfig(self::housenumberField));
+        }else if(Mage::getStoreConfig(self::housenumberField,$this->getStoreId()) != 'street'){
+            $housenumber = $address->getData(Mage::getStoreConfig(self::housenumberField,$this->getStoreId()));
         }else{
             $housenumber = $address->getStreet()[1];
         }
@@ -95,11 +115,9 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
     /**
      * @return \Billie\HttpClient\BillieClient
      */
+    public function clientCreate($storeId = 0){
 
-
-    public function clientCreate(){
-
-        return Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey), $this->getMode());
+        return Billie\HttpClient\BillieClient::create(Mage::getStoreConfig(self::apiKey,$this->getStoreId()), $this->getMode());
     }
 
     /**
@@ -114,7 +132,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
         $newTotalAmount = $order->getData('base_total_invoiced') - $order->getData('base_total_offline_refunded') - $order->getData('base_total_online_refunded');
         $newTaxAmount = $order->getData('base_tax_invoiced') - $order->getData('base_tax_refunded');
         $command->invoiceNumber = $order->getInvoiceCollection()->getFirstItem()->getIncrementId();
-        $command->invoiceUrl = Mage::getStoreConfig(self::invoiceUrl).DS.$order->getIncrementId().'.pdf';
+        $command->invoiceUrl = Mage::getStoreConfig(self::invoiceUrl,$this->getStoreId()).DS.$order->getIncrementId().'.pdf';
         $command->amount = new Billie\Model\Amount(($newTotalAmount-$newTaxAmount)*100, $order->getData('base_currency_code'), $newTaxAmount*100);
 
         return $command;
@@ -136,7 +154,7 @@ class Billie_Core_Helper_Sdk extends Mage_Core_Helper_Abstract
 
     public function getMode(){
 
-       return Mage::getStoreConfig(self::sandboxMode);
+       return Mage::getStoreConfig(self::sandboxMode,$this->getStoreId());
 
     }
 

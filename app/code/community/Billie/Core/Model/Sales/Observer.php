@@ -6,6 +6,7 @@ class Billie_Core_Model_Sales_Observer
 
     const paymentmethodCode = 'payafterdelivery';
     const duration = 'payment/payafterdelivery/duration';
+
     public function createOrder($observer)
     {
 
@@ -18,11 +19,11 @@ class Billie_Core_Model_Sales_Observer
             return;
         }
 
+        Mage::helper('billie_core/sdk')->setStoreId($order->getStoreId());
         $billieOrderData = Mage::helper('billie_core/sdk')->mapCreateOrderData($order);
 
         try {
             // initialize Billie Client
-
             $client = Mage::Helper('billie_core/sdk')->clientCreate();
 
             $billieResponse = $client->createOrder($billieOrderData);
@@ -33,11 +34,9 @@ class Billie_Core_Model_Sales_Observer
 
             $payment->setData('billie_viban', $billieResponse->bankAccount->iban);
             $payment->setData('billie_vbic', $billieResponse->bankAccount->bic);
-            $payment->setData('billie_duration', intval( Mage::getStoreConfig(self::duration)));
+            $payment->setData('billie_duration', intval( Mage::getStoreConfig(self::duration,$order->getStoreId())));
             $payment->save();
             $order->save();
-
-
 
         }catch (\Billie\Exception\BillieException $e){
             $errorMsg = Mage::helper('billie_core')->__($e->getBillieCode());
@@ -71,6 +70,7 @@ class Billie_Core_Model_Sales_Observer
             return;
         }
 
+        Mage::helper('billie_core/sdk')->setStoreId($order->getStoreId());
         $invoiceIds = $order->getInvoiceCollection()->getAllIds();
 
         if (!$invoiceIds) {
@@ -109,6 +109,8 @@ class Billie_Core_Model_Sales_Observer
             return;
         }
 
+        Mage::helper('billie_core/sdk')->setStoreId($order->getStoreId());
+
         try {
             $client = Mage::Helper('billie_core/sdk')->clientCreate();
 
@@ -137,6 +139,7 @@ class Billie_Core_Model_Sales_Observer
             return;
         }
 
+        Mage::helper('billie_core/sdk')->setStoreId($order->getStoreId());
         $client = Mage::Helper('billie_core/sdk')->clientCreate();
 
         try {
